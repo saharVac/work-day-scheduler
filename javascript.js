@@ -59,7 +59,15 @@ $(".saveBtn").click(function () {
   localStorage.setItem("events", JSON.stringify(events));
 });
 
+function displayDay() {
+  // obtain date
+  var date = Date().substring(0, 15);
+  // display
+  $("#currentDay").text(date);
+}
+
 $(document).ready(function () {
+  displayDay();
   renderEvents();
   renderBlockColors();
 });

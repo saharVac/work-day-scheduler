@@ -48,7 +48,8 @@ function renderBlockColors() {
 }
 
 // when save button is clicked
-$(".saveBtn").click(function () {
+$(".saveBtn").click(function (event) {
+  event.preventDefault();
   // obtain event to save
   var event = $(this).prev().val();
   // obtain index

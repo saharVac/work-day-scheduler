@@ -1,18 +1,27 @@
+var events;
+
 // Fill in events from local storage
 function renderEvents() {
   // check if events have been already set
   if (localStorage.getItem("events") !== null) {
-    // obtain object of event
-    var events = JSON.parse(localStorage.getItem("events"));
-
     // iterate over event descriptions
+    // obtain events
+    events = JSON.parse(localStorage.getItem("events"));
+    // iterate over textareas
     $("textarea").each(function (index, element) {
       // assign events with their descriptions
-      $(this).val(events[index]);
+      $(this).val(events[index + 1]);
     });
   } else {
-    // if events haven't been set yet do nothing
-    return;
+    // if events haven't been set yet, set them to empty strings
+    events = {};
+    // iterate over keys
+    for (let i = 1; i <= 9; i++) {
+      // add keys
+      events[i] = "";
+    }
+    // log into localStorage
+    localStorage.setItem("events", JSON.stringify(events));
   }
 }
 
@@ -37,6 +46,18 @@ function renderBlockColors() {
     }
   });
 }
+
+// when save button is clicked
+$(".saveBtn").click(function () {
+  // obtain event to save
+  var event = $(this).prev().val();
+  // obtain index
+  var index = $(this).attr("id");
+  // change event in global events variable
+  events[index] = event;
+  // update events in localStorage
+  localStorage.setItem("events", JSON.stringify(events));
+});
 
 $(document).ready(function () {
   renderEvents();
